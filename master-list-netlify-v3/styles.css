@@ -1,0 +1,540 @@
+/* ============================================================
+   Tokens
+   ============================================================ */
+:root {
+  --paper: #F3EFE4;
+  --paper-dim: #EAE4D4;
+  --ink: #262420;
+  --ink-soft: #57534A;
+  --green: #3F6B4E;
+  --green-deep: #2E4F39;
+  --sage-line: #B9C4AC;
+  --tag-yellow: #E2A63B;
+  --flag-red: #B23A2E;
+
+  --display-font: "Special Elite", "Courier New", monospace;
+  --mono-font: "IBM Plex Mono", "Courier New", monospace;
+
+  --radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--sage-line) 1px, transparent 1px);
+  background-size: 100% 32px;
+  background-attachment: local;
+  color: var(--ink);
+  font-family: var(--mono-font);
+  line-height: 1.5;
+}
+
+main {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+a { color: var(--green-deep); }
+
+/* ============================================================
+   Masthead
+   ============================================================ */
+.masthead {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 56px 20px 28px;
+  text-align: center;
+}
+
+.masthead__stamp {
+  display: inline-block;
+  font-family: var(--display-font);
+  font-size: clamp(2.1rem, 6vw, 3.4rem);
+  letter-spacing: 0.08em;
+  color: var(--green-deep);
+  border: 3px solid var(--green-deep);
+  border-radius: 6px;
+  padding: 10px 28px;
+  transform: rotate(-1.2deg);
+  position: relative;
+}
+
+.masthead__stamp::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed var(--green);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.masthead__sub {
+  margin: 22px auto 0;
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ============================================================
+   Intake / dropzone
+   ============================================================ */
+.intake {
+  margin: 0 0 40px;
+}
+
+.dropzone {
+  position: relative;
+  background: var(--paper-dim);
+  border: 2px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 44px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+  border-color: var(--green-deep);
+  background: #E4E9DD;
+}
+
+.dropzone:focus-visible {
+  outline: 3px solid var(--tag-yellow);
+  outline-offset: 3px;
+}
+
+.dropzone--active {
+  border-color: var(--green-deep);
+  background: #DCE6D5;
+}
+
+.dropzone__clip {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 46px;
+  height: 22px;
+  background: linear-gradient(180deg, #9AA08E, #7C8270);
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.25);
+}
+
+.dropzone__label {
+  font-family: var(--display-font);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+}
+
+.dropzone__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 14px 4px 0;
+  font-size: 0.9rem;
+}
+
+.status--working { color: var(--ink-soft); }
+.status--done { color: var(--green-deep); font-weight: 600; }
+.status--error { color: var(--flag-red); font-weight: 600; }
+
+/* ============================================================
+   Results / tally
+   ============================================================ */
+.results { margin-top: 8px; }
+
+.tally {
+  text-align: center;
+  margin: 0 0 28px;
+}
+
+.tally #tally-count {
+  font-family: var(--display-font);
+  font-size: 2.6rem;
+  color: var(--green-deep);
+  display: block;
+  line-height: 1;
+}
+
+.tally__label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   Receipt tape (signature element)
+   ============================================================ */
+.receipt {
+  background: #FBFAF4;
+  border: 1px solid var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 0 0 28px;
+  box-shadow: 0 6px 14px rgba(38,36,32,0.08);
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.receipt__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px dashed var(--sage-line);
+  font-family: var(--display-font);
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  color: var(--green-deep);
+}
+
+.receipt__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.receipt__table thead th {
+  text-align: left;
+  padding: 10px 20px 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--sage-line);
+}
+
+.receipt__table td {
+  padding: 7px 20px;
+  border-bottom: 1px dotted var(--sage-line);
+}
+
+.receipt__table tbody tr:hover {
+  background: #F1EEDF;
+}
+
+.receipt__table td.num,
+.receipt__table th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.receipt__table td.used-in {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  max-width: 280px;
+}
+
+/* expandable per-recipe breakdown */
+.expand-toggle {
+  background: none;
+  border: none;
+  color: var(--green-deep);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0 6px 0 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.expand-toggle:focus-visible {
+  outline: 2px solid var(--tag-yellow);
+  outline-offset: 2px;
+}
+
+.qty-cell { vertical-align: top; }
+
+.qty-line {
+  white-space: nowrap;
+}
+
+.qty-line + .qty-line {
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px dotted var(--sage-line);
+}
+
+.est-flag {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.68rem;
+  color: var(--tag-yellow);
+  border: 1px solid var(--tag-yellow);
+  border-radius: 999px;
+  padding: 0 5px;
+  cursor: help;
+}
+
+.receipt__detail td {
+  padding: 0 20px 14px 44px;
+  border-bottom: 1px dotted var(--sage-line);
+}
+
+.detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  background: var(--paper-dim);
+  border-radius: var(--radius);
+}
+
+.detail-table th {
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--sage-line);
+}
+
+.detail-table td {
+  padding: 5px 10px;
+  border-bottom: 1px dotted var(--sage-line);
+}
+
+.detail-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   Store grouping (results header + per-store receipt blocks)
+   ============================================================ */
+.receipt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.receipt-header__title {
+  font-family: var(--display-font);
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  color: var(--green-deep);
+}
+
+.receipt__count {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+.receipt--unassigned {
+  border-style: dashed;
+  border-color: var(--ink-soft);
+}
+
+.receipt--unassigned .receipt__head {
+  color: var(--flag-red);
+}
+
+.store-cell { text-align: left; }
+
+.store-select {
+  font-family: var(--mono-font);
+  font-size: 0.78rem;
+  background: var(--paper);
+  border: 1px solid var(--sage-line);
+  border-radius: 3px;
+  padding: 3px 6px;
+  color: var(--ink);
+  max-width: 140px;
+}
+
+.store-select:focus-visible {
+  outline: 2px solid var(--tag-yellow);
+  outline-offset: 1px;
+}
+
+.conf-flag {
+  display: inline-block;
+  margin-left: 5px;
+  width: 1.2em;
+  height: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--ink-soft);
+  border-radius: 999px;
+  cursor: help;
+}
+
+.receipt__tear {
+  height: 14px;
+  margin-top: 8px;
+  background:
+    linear-gradient(135deg, transparent 45%, var(--paper) 45%, var(--paper) 55%, transparent 55%),
+    linear-gradient(45deg, transparent 45%, var(--paper) 45%, var(--paper) 55%, transparent 55%);
+  background-size: 16px 16px;
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+
+/* ============================================================
+   Stamp buttons
+   ============================================================ */
+.stamp-btn {
+  font-family: var(--display-font);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--flag-red);
+  background: transparent;
+  border: 2px solid var(--flag-red);
+  border-radius: 4px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transform: rotate(-1deg);
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.stamp-btn:hover { background: var(--flag-red); color: var(--paper); }
+
+.stamp-btn:focus-visible {
+  outline: 3px solid var(--tag-yellow);
+  outline-offset: 2px;
+}
+
+.stamp-btn--small { font-size: 0.7rem; padding: 5px 10px; }
+
+/* ============================================================
+   Fold-down panels (unspecified / review)
+   ============================================================ */
+.fold {
+  background: var(--paper-dim);
+  border: 1px solid var(--sage-line);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  padding: 0 20px;
+}
+
+.fold summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.fold summary::-webkit-details-marker { display: none; }
+
+.fold summary::before {
+  content: "▸";
+  color: var(--green-deep);
+  transition: transform 0.15s ease;
+}
+
+.fold[open] summary::before { transform: rotate(90deg); }
+
+.fold--flag summary::before { color: var(--flag-red); }
+
+.fold__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--tag-yellow);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.fold__note {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.fold__actions { margin-bottom: 12px; }
+
+.fold__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-bottom: 16px;
+}
+
+.fold__table th {
+  text-align: left;
+  padding: 6px 8px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--sage-line);
+}
+
+.fold__table td {
+  padding: 6px 8px;
+  border-bottom: 1px dotted var(--sage-line);
+  vertical-align: top;
+}
+
+.fold__table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   About / footer
+   ============================================================ */
+.about {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--sage-line);
+}
+
+.about h2 {
+  font-family: var(--display-font);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--green-deep);
+  margin: 0 0 14px;
+}
+
+.about ul {
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+}
+
+.about li { margin-bottom: 8px; }
+
+.foot {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 560px) {
+  .masthead__stamp { font-size: 1.7rem; padding: 8px 16px; }
+  .receipt__table td.used-in { display: none; }
+  .receipt__table th:last-child { display: none; }
+  .receipt__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
